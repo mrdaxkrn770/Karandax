@@ -6,6 +6,144 @@
   <title>MrdaxKrn | Persistent Blog Template</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    /* Add new styles for save functionality */
+    .save-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      color: var(--secondary);
+    }
+    
+    .save-btn:hover, .save-btn.saved {
+      color: var(--premium);
+      transform: scale(1.1);
+    }
+    
+    .save-btn.saved i {
+      font-weight: 900;
+    }
+    
+    .saved-posts-page {
+      padding: 40px 0;
+    }
+    
+    .saved-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .no-saved-posts {
+      text-align: center;
+      padding: 40px;
+      background: var(--light);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+    }
+    
+    .no-saved-posts i {
+      font-size: 3rem;
+      color: var(--secondary);
+      margin-bottom: 20px;
+    }
+    
+    /* Ad container styles */
+    .ad-container {
+      background: var(--light);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 250px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow);
+      margin: 20px 0;
+      position: relative;
+      background: linear-gradient(135deg, #f0f8ff 0%, #e6f7ff 100%);
+    }
+    
+    .ad-container.sidebar {
+      min-height: 300px;
+      margin-bottom: 30px;
+    }
+    
+    .ad-container.posts-grid {
+      grid-column: 1 / -1;
+      min-height: 90px;
+      margin: 15px 0;
+    }
+    
+    .ad-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--primary);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .ad-content {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .ad-content h4 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    
+    .ad-content p {
+      color: var(--secondary);
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+    }
+    
+    .ad-btn {
+      background: var(--premium);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .ad-btn:hover {
+      background: #ff5252;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+    }
+    
+    .ad-container .spinner {
+      width: 30px;
+      height: 30px;
+      border-width: 3px;
+      margin: 0;
+    }
+    
+    /* Existing styles remain unchanged */
     * {
       margin: 0;
       padding: 0;
@@ -1961,6 +2099,8 @@
         <a href="#all-posts"><i class="fas fa-book"></i> Posts</a>
         <a href="#about"><i class="fas fa-user"></i> About</a>
         <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+        <!-- Saved Posts Link -->
+        <a href="#saved-posts"><i class="fas fa-bookmark"></i> Saved Posts</a>
         <!-- Premium Book Menu Item -->
         <a href="https://rzp.io/rzp/yZLs9AH" target="_blank" class="premium-menu">
           <i class="fas fa-crown"></i> Premium Book
@@ -1977,6 +2117,8 @@
       <a href="#all-posts"><i class="fas fa-book"></i> Posts</a>
       <a href="#about"><i class="fas fa-user"></i> About</a>
       <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+      <!-- Saved Posts Link -->
+      <a href="#saved-posts"><i class="fas fa-bookmark"></i> Saved Posts</a>
       <!-- Premium Book in Mobile Menu -->
       <a href="https://rzp.io/rzp/yZLs9AH" target="_blank" class="premium-menu">
         <i class="fas fa-crown"></i> Premium Book
@@ -2010,6 +2152,18 @@
         <a href="https://rzp.io/rzp/yZLs9AH" target="_blank" class="btn btn-premium">GET PREMIUM BOOK</a>
       </div>
     </section>
+
+    <!-- Ad Banner 1 - Top of main content -->
+    <div class="container">
+      <div class="ad-container posts-grid">
+        <span class="ad-label">Ad</span>
+        <div class="ad-content">
+          <h4>Premium Content Awaits</h4>
+          <p>Unlock exclusive articles and resources with our premium subscription</p>
+          <button class="ad-btn">Learn More</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Latest Posts Section -->
     <div class="container">
@@ -2057,6 +2211,16 @@
             <p id="aboutWidgetDescriptionDisplay">Hi, I'm John Doe, a passionate blogger sharing thoughts on technology, travel, and lifestyle. Join me on this journey of discovery.</p>
           </div>
 
+          <!-- Ad Container 2 - Sidebar -->
+          <div class="ad-container sidebar">
+            <span class="ad-label">Sponsored</span>
+            <div class="ad-content">
+              <h4>Boost Your Productivity</h4>
+              <p>Try our premium tools for content creators and bloggers</p>
+              <button class="ad-btn">Try Now</button>
+            </div>
+          </div>
+
           <!-- Popular Posts -->
           <div class="widget">
             <h3 class="widget-title">Popular Posts</h3>
@@ -2084,6 +2248,18 @@
             </form>
           </div>
         </aside>
+      </div>
+    </div>
+
+    <!-- Ad Banner 3 - Bottom of page -->
+    <div class="container">
+      <div class="ad-container posts-grid">
+        <span class="ad-label">Ad</span>
+        <div class="ad-content">
+          <h4>Join Our Community</h4>
+          <p>Connect with thousands of creators and readers in our exclusive forum</p>
+          <button class="ad-btn">Join Now</button>
+        </div>
       </div>
     </div>
   </div>
@@ -2293,6 +2469,24 @@
     </div>
   </div>
 
+  <!-- Saved Posts Page -->
+  <div id="saved-posts-page" class="page">
+    <div class="container saved-posts-page">
+      <div class="section-title">
+        <h2>Saved Posts</h2>
+      </div>
+      
+      <div id="saved-posts-container">
+        <!-- Saved posts will be rendered here -->
+      </div>
+      
+      <!-- Back to Home Button -->
+      <div class="see-all-container">
+        <a href="#home" class="btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -2322,6 +2516,7 @@
           <ul class="footer-links">
             <li><a href="#home"><i class="fas fa-angle-right"></i> Home</a></li>
             <li><a href="#all-posts"><i class="fas fa-angle-right"></i> Posts</a></li>
+            <li><a href="#saved-posts"><i class="fas fa-angle-right"></i> Saved Posts</a></li>
             <li><a href="#about"><i class="fas fa-angle-right"></i> About</a></li>
             <li><a href="#contact"><i class="fas fa-angle-right"></i> Contact</a></li>
             <li><a href="https://rzp.io/rzp/yZLs9AH" target="_blank"><i class="fas fa-crown"></i> Premium Book</a></li>
@@ -2447,7 +2642,8 @@
           isFeatured: false
         }
       ],
-      popularPosts: ["1", "2", "3"] // IDs of popular posts
+      popularPosts: ["1", "2", "3"], // IDs of popular posts
+      savedPosts: [] // Array of saved post IDs
     };
 
     // Initialize the blog with localStorage
@@ -2505,6 +2701,7 @@
       renderCategoryList();
       renderPopularPosts();
       renderFooterCategories();
+      renderSavedPosts();
       
       // Populate admin forms
       document.getElementById('heroTitle').value = blogData.hero.title;
@@ -2532,10 +2729,14 @@
     // Function to create a post card HTML
     function createPostCard(post) {
       const isPopular = blogData.popularPosts.includes(post.id);
+      const isSaved = blogData.savedPosts.includes(post.id);
       
       return `
         <a href="#post-${post.id}" class="post-card">
           ${isPopular ? '<div class="popular-badge">POPULAR</div>' : ''}
+          <div class="save-btn ${isSaved ? 'saved' : ''}" data-id="${post.id}">
+            <i class="${isSaved ? 'fas' : 'far'} fa-bookmark"></i>
+          </div>
           <div class="post-img">
             <img src="${post.image}" alt="${post.category}">
             <div class="post-overlay">
@@ -2670,6 +2871,41 @@
           </div>
         `;
       });
+    }
+    
+    // Render saved posts
+    function renderSavedPosts() {
+      const container = document.getElementById('saved-posts-container');
+      if (!container) return;
+      
+      container.innerHTML = '';
+      
+      if (blogData.savedPosts.length === 0) {
+        container.innerHTML = `
+          <div class="no-saved-posts">
+            <i class="far fa-bookmark"></i>
+            <h3>No Saved Posts</h3>
+            <p>You haven't saved any posts yet. Click the bookmark icon on any post to save it for later.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // Create a grid container
+      const grid = document.createElement('div');
+      grid.className = 'saved-posts-grid';
+      
+      // Get saved posts
+      const savedPosts = blogData.posts.filter(post => 
+        blogData.savedPosts.includes(post.id)
+      );
+      
+      // Render each saved post
+      savedPosts.forEach(post => {
+        grid.innerHTML += createPostCard(post);
+      });
+      
+      container.appendChild(grid);
     }
 
     // Render post list in admin panel
@@ -2819,6 +3055,9 @@
         // Remove from popular posts if it was there
         blogData.popularPosts = blogData.popularPosts.filter(id => id !== postId);
         
+        // Remove from saved posts if it was there
+        blogData.savedPosts = blogData.savedPosts.filter(id => id !== postId);
+        
         renderPostList();
         renderLatestPosts();
         renderAllPosts();
@@ -2920,7 +3159,6 @@
       renderAllPosts();
       renderPopularPosts();
       renderPopularPostsAdmin();
-      populatePopularPostDropdown();
       
       // Hide form
       document.getElementById('postEditSection').style.display = 'none';
@@ -2972,7 +3210,8 @@
       'about': 'about-page',
       'contact': 'contact-page',
       'category': 'category-page',
-      'post': 'post-detail-page'
+      'post': 'post-detail-page',
+      'saved-posts': 'saved-posts-page'
     };
     
     // Function to show a specific page
@@ -3014,6 +3253,11 @@
       
       // Update URL hash
       window.location.hash = pageId;
+      
+      // Render saved posts if on saved posts page
+      if (pageId === 'saved-posts') {
+        renderSavedPosts();
+      }
     }
     
     // Function to update active navigation
@@ -3077,6 +3321,8 @@
       const container = document.getElementById('post-detail-container');
       if (!container) return;
       
+      const isSaved = blogData.savedPosts.includes(post.id);
+      
       container.innerHTML = `
         <div class="post-header">
           <h1>${post.title}</h1>
@@ -3090,7 +3336,12 @@
         <div class="post-content-full">
           ${post.content}
         </div>
-        <a href="#home" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
+          <a href="#home" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+          <button class="save-btn ${isSaved ? 'saved' : ''}" data-id="${post.id}" style="margin-left: 15px; padding: 10px 20px; border-radius: 30px;">
+            <i class="${isSaved ? 'fas' : 'far'} fa-bookmark"></i> ${isSaved ? 'Saved' : 'Save for Later'}
+          </button>
+        </div>
       `;
     }
     
@@ -3353,6 +3604,50 @@
         button.classList.remove('saved');
       }, 2000);
     }
+    
+    // Save/Unsave post functionality
+    function toggleSavePost(postId) {
+      const index = blogData.savedPosts.indexOf(postId);
+      let isSaved = false;
+      
+      if (index === -1) {
+        // Save the post
+        blogData.savedPosts.push(postId);
+        isSaved = true;
+      } else {
+        // Unsave the post
+        blogData.savedPosts.splice(index, 1);
+      }
+      
+      // Save data to localStorage
+      saveBlogData();
+      
+      return isSaved;
+    }
+    
+    // Handle save button clicks
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.save-btn')) {
+        const button = e.target.closest('.save-btn');
+        const postId = button.dataset.id;
+        
+        const isSaved = toggleSavePost(postId);
+        
+        // Update button appearance
+        if (isSaved) {
+          button.classList.add('saved');
+          button.innerHTML = `<i class="fas fa-bookmark"></i>${button.textContent.includes('Save') ? ' Saved' : ''}`;
+        } else {
+          button.classList.remove('saved');
+          button.innerHTML = `<i class="far fa-bookmark"></i>${button.textContent.includes('Save') ? ' Save for Later' : ''}`;
+        }
+        
+        // If on saved posts page, re-render the page
+        if (window.location.hash.substring(1) === 'saved-posts') {
+          renderSavedPosts();
+        }
+      }
+    });
     
     // Initialize the blog when page loads
     document.addEventListener('DOMContentLoaded', function() {
